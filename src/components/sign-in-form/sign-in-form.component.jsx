@@ -6,7 +6,7 @@ import FormInput from "../form-input/form-input.component";
 import {
   auth,
   signInWithGooglePopup,
-  // signInWithGoogleRedirect,
+  signInWithGoogleRedirect,
   createUserDocumentFromAuth,
   // createAuthUserWithEmailAndPassword,
   signInAuthUserWithEmailAndPassword,
@@ -57,7 +57,7 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+    await signInWithGoogleRedirect();
   };
 
   const getRedirectWhenUserLogin = async () => {
