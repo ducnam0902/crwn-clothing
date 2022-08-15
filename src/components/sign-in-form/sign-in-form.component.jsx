@@ -5,7 +5,7 @@ import FormInput from "../form-input/form-input.component";
 
 import {
   auth,
-  signInWithGooglePopup,
+  //signInWithGooglePopup,
   signInWithGoogleRedirect,
   createUserDocumentFromAuth,
   // createAuthUserWithEmailAndPassword,
