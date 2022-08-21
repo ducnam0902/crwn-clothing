@@ -5,25 +5,30 @@ import FormInput from "../form-input/form-input.component";
 
 import {
   auth,
-  signInWithGooglePopup,
-  signInWithGoogleRedirect,
   createUserDocumentFromAuth,
   // createAuthUserWithEmailAndPassword,
-  signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
 import { getRedirectResult } from "firebase/auth";
 
 import "./sign-in-form.styles.scss";
+import { useDispatch } from "react-redux";
+
+import {
+  emailSignInStart,
+  googleSignInStart,
+} from "../../store/user/user.action";
 
 const defaultFormFields = {
   email: "",
   password: "",
 };
+
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const dispatch = useDispatch();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({
@@ -40,7 +45,7 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (e) {
       switch (e.code) {
@@ -57,7 +62,7 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    await signInWithGoogleRedirect();
+    dispatch(googleSignInStart());
   };
 
   const getRedirectWhenUserLogin = async () => {
@@ -70,6 +75,7 @@ const SignInForm = () => {
   useEffect(() => {
     getRedirectWhenUserLogin();
   }, []);
+
   return (
     <div className="sign-up-container">
       <h2>Already have an account?</h2>
