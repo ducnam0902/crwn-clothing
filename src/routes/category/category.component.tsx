@@ -11,12 +11,18 @@ import {
   selectCategoriesIsLoading,
 } from "../../store/categories/category.selector";
 import Spinner from "../../components/spinner/spinner.component";
+import { CategoryItem } from "../../store/categories/category.types";
 
+type CategoryRouteParams = {
+  category: string;
+};
 const Categories = () => {
-  const { category } = useParams();
+  const { category } = useParams<
+    keyof CategoryRouteParams
+  >() as CategoryRouteParams;
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<CategoryItem[]>([]);
 
   useEffect(() => {
     setProducts(categoriesMap[category.toLowerCase()]);
